@@ -3,6 +3,41 @@
 ## About Project
 This is boilerplate project includes Laravel and Elasticsearch to get started with rapid development.
 
+## Install
+1. Clone this repository in your local folder using command:
+```
+git clone git@github.com:solv1k/laravel-elasticsearch.git laravel-elasticsearch
+```
+
+2. Navigate to the created folder **laravel-elasticsearch** in the terminal:
+```
+cd laravel-elasticsearch
+```
+
+3. Use **make** for full installation:
+```
+make install
+```
+
+## Local development
+For local development, the author recommends that you use **make**.
+
+1. Start local development
+```
+make up
+```
+
+2. End local development
+```
+make down
+```
+
+## Seeding database
+For seeding database (upload test data) use:
+```
+make seed
+```
+
 ## Code of Conduct
 
 In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
