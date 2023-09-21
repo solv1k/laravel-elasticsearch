@@ -6,7 +6,7 @@ This is boilerplate project includes Laravel and Elasticsearch to get started wi
 ## Install
 1. Clone this repository in your local folder using command:
 ```
-git clone git@github.com:solv1k/laravel-elasticsearch.git laravel-elasticsearch
+git clone https://github.com/solv1k/laravel-elasticsearch.git laravel-elasticsearch
 ```
 
 2. Navigate to the created folder **laravel-elasticsearch** in the terminal:
