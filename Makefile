@@ -1,5 +1,7 @@
 install:
 	cp .env.example .env && \
+	npm install --legacy-peer-deps && \
+	npm run build && \
 	composer install && \
 	php artisan key:generate && \
 	./vendor/bin/sail build --no-cache
