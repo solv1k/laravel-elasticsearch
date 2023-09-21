@@ -20,7 +20,7 @@ make install
 ```
 
 ## Local development
-For local development, the author recommends that you use **make**.
+For local development, the author recommends using **make**.
 
 1. Start local development
 ```
