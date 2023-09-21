@@ -7,6 +7,8 @@ install:
 	./vendor/bin/sail build --no-cache
 seed:
 	./vendor/bin/sail artisan db:seed
+reindex:
+	./vendor/bin/sail artisan es:reindex:articles
 up:
 	./vendor/bin/sail up -d && \
 	./vendor/bin/sail artisan migrate
