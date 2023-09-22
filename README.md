@@ -38,6 +38,12 @@ For seeding database (upload test data) use:
 make seed
 ```
 
+## Reindex Elasticsearch data
+For reindex Elasticsearch data use:
+```
+make reindex
+```
+
 ## Code of Conduct
 
 In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
