@@ -7,7 +7,7 @@ namespace App\Common\Traits\Models;
 trait StaticTableNames
 {
     /**
-     * Return table name for model.
+     * Return table name for the model.
      *
      * @return string
      */

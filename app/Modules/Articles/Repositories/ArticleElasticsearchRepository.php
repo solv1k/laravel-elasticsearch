@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Modules\Articles\Repositories;
 
+use App\Common\Repositories\BaseRepository;
 use App\Modules\Articles\Models\Article;
 use App\Modules\Articles\Contracts\ArticleRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -12,8 +13,11 @@ use Elastic\Elasticsearch\Client as Elasticsearch;
 use Illuminate\Pagination\LengthAwarePaginator as PaginationLengthAwarePaginator;
 use Illuminate\Support\Arr;
 
-class ArticleElasticsearchRepository implements ArticleRepository
+class ArticleElasticsearchRepository extends BaseRepository implements ArticleRepository
 {
+    private $isSearch = false;
+    private $searchQuery = '';
+
     public function __construct(
         private Elasticsearch $elasticsearch
     ) {
@@ -21,25 +25,37 @@ class ArticleElasticsearchRepository implements ArticleRepository
     }
 
     /**
-     * Search articles by query string and return them.
+     * Set query builder by search string and return repository object.
      *
      * @param string|null $query
-     * @param int $page
-     * @param int $perPage
-     * @return Collection|LengthAwarePaginator
+     * @return ArticleRepository
      */
-    public function search(
-        ?string $query = null,
-        int $page = 1,
-        int $perPage = 15
-    ): Collection|LengthAwarePaginator {
+    public function search(?string $query = null): ArticleRepository {
         if (is_null($query)) {
             return app()
                 ->make(ArticleEloquentRepository::class)
-                ->search(page: $page, perPage: $perPage);
+                ->search();
         }
-        $items = $this->searchInElasticsearch($query, $page, $perPage);
-        return $this->buildPaginator($items, $page, $perPage);
+        $this->isSearch = true;
+        $this->searchQuery = $query;
+        return $this;
+    }
+
+    /**
+     * Execute repository query and return data with pagination.
+     *
+     * @param int $page
+     * @param int $perPage
+     * @return LengthAwarePaginator
+     */
+    public function paginate(int $page = 1, int $perPage = 15): LengthAwarePaginator
+    {
+        if ($this->isSearch) {
+            $items = $this->searchInElasticsearch($this->searchQuery, $page, $perPage);
+            return $this->buildPaginator($items, $page, $perPage);
+        }
+
+        return parent::paginate($page, $perPage);
     }
 
     /**
@@ -50,7 +66,7 @@ class ArticleElasticsearchRepository implements ArticleRepository
      * @param int $perPage
      * @return mixed
      */
-    private function searchInElasticsearch(string $query = '', int $page, int $perPage): mixed
+    private function searchInElasticsearch(string $query, int $page, int $perPage): mixed
     {
         $from = $page * $perPage - $perPage;
         $size = $perPage;

@@ -3,6 +3,7 @@
 namespace App\Modules\Articles\Database\Factories;
 
 use App\Modules\Articles\Models\Article;
+use App\Modules\Articles\Models\ArticleCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -28,6 +29,7 @@ class ArticleFactory extends Factory
             'title' => fake()->sentence(),
             'body' => fake()->text(),
             'tags' => $tags,
+            'category_id' => ArticleCategory::inRandomOrder()->first()->id
         ];
     }
 }

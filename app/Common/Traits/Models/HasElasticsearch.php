@@ -6,28 +6,57 @@ namespace App\Common\Traits\Models;
 
 trait HasElasticsearch
 {
+    /**
+     * Register Elasticsearch observer for the model.
+     *
+     * @return void
+     */
     public static function bootHasElasticsearch()
     {
         if (config('services.elasticsearch.enabled')) {
             static::observe(static::getSearchObserver());
         }
     }
-    public static function getSearchObserver()
+
+    /**
+     * Return Elasticsearch observer class for the model.
+     *
+     * @return string
+     */
+    public static function getSearchObserver(): string
     {
         throw new \Exception("Please set Elasticsearch observer in model.");
     }
-    public function getSearchIndex()
+
+    /**
+     * Return Elasticsearch index name for the model.
+     *
+     * @return string
+     */
+    public function getSearchIndex(): string
     {
         return $this->getTable();
     }
-    public function getSearchType()
+
+    /**
+     * Return Elasticsearch search type for the model.
+     *
+     * @return string
+     */
+    public function getSearchType(): string
     {
         if (property_exists($this, 'useSearchType')) {
             return $this->useSearchType;
         }
         return $this->getTable();
     }
-    public function toSearchArray()
+
+    /**
+     * Transform model to Elasticsearch array.
+     *
+     * @return array
+     */
+    public function toSearchArray(): array
     {
         return $this->toArray();
     }

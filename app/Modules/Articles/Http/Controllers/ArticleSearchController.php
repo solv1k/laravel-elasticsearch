@@ -16,11 +16,12 @@ class ArticleSearchController extends Controller
         ArticleRepository $articleRepository
     ): View {
         return view('modules.articles.search', [
-            'articles' => $articleRepository->search(
-                $request->q,
-                (int)$request->page ?: 1,
-                (int)$request->perPage ?: 15
-            )
+            'articles' => $articleRepository
+                ->search($request->q)
+                ->paginate(
+                    (int)$request->page ?: 1,
+                    (int)$request->perPage ?: 15
+                )
         ]);
     }
 }

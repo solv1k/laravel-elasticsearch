@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Common\Models;
 
 use App\Common\Traits\Models\StaticTableNames;

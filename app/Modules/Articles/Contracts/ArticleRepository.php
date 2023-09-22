@@ -4,22 +4,15 @@ declare(strict_types=1);
 
 namespace App\Modules\Articles\Contracts;
 
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Collection;
+use App\Common\Contracts\Repositories\BaseRepository;
 
-interface ArticleRepository
+interface ArticleRepository extends BaseRepository
 {
     /**
-     * Search articles by query string and return them.
+     * Set query builder by search string and return repository object.
      *
      * @param string|null $query
-     * @param int $page
-     * @param int $perPage
-     * @return Collection|LengthAwarePaginator
+     * @return ArticleRepository
      */
-    public function search(
-        ?string $query = null,
-        int $page = 1,
-        int $perPage = 15
-    ): Collection|LengthAwarePaginator;
+    public function search(?string $query = null): ArticleRepository;
 }
