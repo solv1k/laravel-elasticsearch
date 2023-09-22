@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Modules\Articles\Database\Factories;
 
 use App\Modules\Articles\Models\ArticleCategory;
